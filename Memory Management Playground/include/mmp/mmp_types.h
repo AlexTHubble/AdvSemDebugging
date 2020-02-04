@@ -5,12 +5,13 @@ Copyright 2019-2020
 */
 //-----------------------------------------------------------------------------
 
+#include <Windows.h>
+
 #ifndef _MMP_TYPES_H_
 #define _MMP_TYPES_H_
 
 
 // core signed type abbreviations
-typedef				__int8			i8,		byte;
 typedef				__int16			i16,	word;
 typedef				__int32			i32,	dword;
 typedef				__int64			i64,	qword;

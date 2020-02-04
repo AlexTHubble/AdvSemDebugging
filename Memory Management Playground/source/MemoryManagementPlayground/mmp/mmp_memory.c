@@ -9,6 +9,8 @@ Copyright 2019-2020
 
 #include "mmp/mmp_file.h"
 
+#include <Windows.h>
+
 
 //-----------------------------------------------------------------------------
 
@@ -118,7 +120,7 @@ addr mmp_set(addr const block, size const size_bytes, byte const value)
 }
 
 
-addr mmp_copy(addr const block_dst, kaddr const block_src, size const size_bytes)
+var mmp_copy(var const block_dst, kvar const block_src, size const size_bytes)
 {
 	if (block_dst && block_src && block_dst != block_src && size_bytes > 0)
 	{
@@ -140,7 +142,7 @@ addr mmp_copy(addr const block_dst, kaddr const block_src, size const size_bytes
 }
 
 
-size mmp_compare(kaddr const block_0, kaddr const block_1, size const size_bytes)
+size mmp_compare(kvar const block_0, kvar const block_1, size const size_bytes)
 {
 	if (block_0 && block_1 && block_0 != block_1 && size_bytes > 0)
 	{
@@ -165,21 +167,23 @@ size mmp_compare(kaddr const block_0, kaddr const block_1, size const size_bytes
 //-----------------------------------------------------------------------------
 // pool utilities
 
-addr mmp_pool_init(addr const block_base, size const block_base_size, size const pool_size_bytes)
+var mmp_pool_init(var const block_base, size const block_base_size, size const pool_size_bytes)
 {
 	if (block_base && block_base_size && pool_size_bytes)
 	{
+		//Do magic here
 
+		//return block_base;
 	}
 	return 0;
 }
 
 
-size mmp_pool_term(addr const pool)
+size mmp_pool_term(var const pool)
 {
 	if (pool)
 	{
-
+		//Reverse pool_init
 	}
 	return 0;
 }
@@ -188,17 +192,22 @@ size mmp_pool_term(addr const pool)
 //-----------------------------------------------------------------------------
 // block utilities
 
-addr mmp_block_reserve(addr const pool, size const block_size_bytes)
+var mmp_block_reserve(var const pool, size const size)
 {
-	if (pool && block_size_bytes)
+	if (pool && size)
 	{
-
+		HANDLE heap;
+		heap = HeapCreate(0, 0, size);
+		if(heap){
+			return HeapReAlloc(heap, 0, pool, size);
+		}
+		return 0;
 	}
 	return 0;
 }
 
 
-size mmp_block_release(addr const block, addr const pool)
+size mmp_block_release(var const block, var const pool)
 {
 	if (block && pool)
 	{
