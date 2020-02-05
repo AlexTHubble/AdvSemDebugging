@@ -169,9 +169,23 @@ size mmp_compare(kvar const block_0, kvar const block_1, size const size_bytes)
 
 var mmp_pool_init(var const block_base, size const block_base_size, size const pool_size_bytes)
 {
+	/*
+		So here's what's going down
+		0. Check to see if the block of memory is free?
+		1. Setup the ground of the pool, this will include any info and gaurd spots
+			1a. Hook the size into the ground of the pool
+		2. Init the end cap of the pool
+		3. Return the first spot of memory in the pool? (or the first pointer)
+	*/
 	if (block_base && block_base_size && pool_size_bytes)
 	{
-		//Do magic here
+		//Base of the block will hold our size
+		int* size = (int*)((char *)block_base + 1); //Sets up size to be at the location of the base + 1 ???
+		memcpy(size, &block_base_size, sizeof(block_base_size)); //Can we use that without explosion???
+
+		int* byteSize = (int*)((char*)block_base + 2); //Sets up size to be at the location of the base + 1 ???
+		memcpy(size, &pool_size_bytes, sizeof(pool_size_bytes)); //Can we use that without explosion???
+
 
 		//return block_base;
 	}
@@ -194,25 +208,32 @@ size mmp_pool_term(var const pool)
 
 var mmp_block_reserve(var const pool, size const size)
 {
+	/*
+		1. Find a free spot
+		2. Allocate an array using the free spot?
+		3. Profit (return true)
+	*/
+#ifdef _WIN32
 	if (pool && size)
 	{
-		HANDLE heap;
-		heap = HeapCreate(0, 0, size);
-		if(heap){
-			return HeapReAlloc(heap, 0, pool, size);
-		}
-		return 0;
+		return VirtualAlloc(pool, size, 0, 0);
 	}
+#endif // _WIN32
+
 	return 0;
 }
 
 
 size mmp_block_release(var const block, var const pool)
 {
+#ifdef _WIN32
 	if (block && pool)
 	{
-
+		int* size = (int*)((char*)pool + 1);
+		VirtualFree(block, *size, 0);
 	}
+#endif // _WIN32
+
 	return 0;
 }
 

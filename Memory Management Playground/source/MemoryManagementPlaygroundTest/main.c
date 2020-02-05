@@ -77,7 +77,7 @@ int testMalloc(decl_argc, decl_argv)
 	};
 	typedef union malloctest malloctest;
 
-	int i = 8;
+	int i = 0;
 	var base = &i;
 	var pool = mmp_pool_init(base, sizeof(int), 1024);
 	var mallocTest = mmp_block_reserve(pool, 1024);
