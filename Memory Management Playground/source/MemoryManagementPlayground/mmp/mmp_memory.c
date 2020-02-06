@@ -167,7 +167,7 @@ size mmp_compare(kvar const block_0, kvar const block_1, size const size_bytes)
 //-----------------------------------------------------------------------------
 // pool utilities
 
-var mmp_pool_init(var const block_base, size const block_base_size, size const pool_size_bytes)
+var mmp_pool_init(var const block_base, size_t const block_base_size, size_t const pool_size_bytes)
 {
 	/*
 		So here's what's going down
@@ -180,14 +180,13 @@ var mmp_pool_init(var const block_base, size const block_base_size, size const p
 	if (block_base && block_base_size && pool_size_bytes)
 	{
 		//Base of the block will hold our size
-		int* size = (int*)((char *)block_base + 1); //Sets up size to be at the location of the base + 1 ???
+		int* size = (int*)block_base - 4; //Sets up size to be at the location of the base + 1 ???
 		memcpy(size, &block_base_size, sizeof(block_base_size)); //Can we use that without explosion???
 
-		int* byteSize = (int*)((char*)block_base + 2); //Sets up size to be at the location of the base + 1 ???
-		memcpy(size, &pool_size_bytes, sizeof(pool_size_bytes)); //Can we use that without explosion???
+		int* byteSize = (int*)block_base - 5; //Sets up size to be at the location of the base + 1 ???
+		memcpy(byteSize, &pool_size_bytes, sizeof(pool_size_bytes)); //Can we use that without explosion???
 
-
-		//return block_base;
+		return block_base;
 	}
 	return 0;
 }
@@ -206,7 +205,7 @@ size mmp_pool_term(var const pool)
 //-----------------------------------------------------------------------------
 // block utilities
 
-var mmp_block_reserve(var const pool, size const size)
+var mmp_block_reserve(var const pool, size_t const size)
 {
 	/*
 		1. Find a free spot
@@ -216,7 +215,7 @@ var mmp_block_reserve(var const pool, size const size)
 #ifdef _WIN32
 	if (pool && size)
 	{
-		return VirtualAlloc(pool, size, 0, 0);
+		return VirtualAlloc(pool, size, MEM_COMMIT, PAGE_READWRITE);
 	}
 #endif // _WIN32
 
@@ -229,8 +228,7 @@ size mmp_block_release(var const block, var const pool)
 #ifdef _WIN32
 	if (block && pool)
 	{
-		int* size = (int*)((char*)pool + 1);
-		VirtualFree(block, *size, 0);
+		VirtualFree(block, 0, MEM_RELEASE);
 	}
 #endif // _WIN32
 

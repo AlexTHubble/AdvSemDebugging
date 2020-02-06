@@ -77,17 +77,21 @@ int testMalloc(decl_argc, decl_argv)
 	//};
 	//typedef union malloctest malloctest;
 
-	int i = 0;
-	var base = &i;
+	var base = HeapAlloc(GetProcessHeap(), 0, 1);
 	var pool = mmp_pool_init(base, sizeof(int), 1024);
 	var mallocTest = mmp_block_reserve(pool, 1024);
 
 	if(mallocTest){
-		printf("Works");
+		printf("Works\n");
+	}
+	else {
+		printf("Doesn't work\n");
 	}
 
 	mmp_block_release(mallocTest, pool);
 	mmp_pool_term(pool);
+
+	HeapFree(GetProcessHeap(), 0, base);
 
 	//malloctest* test1024 = malloc(1024);
 	//malloctest* test2048 = malloc(2048);
