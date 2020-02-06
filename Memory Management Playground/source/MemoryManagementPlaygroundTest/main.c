@@ -67,15 +67,15 @@ int testMalloc(decl_argc, decl_argv)
 
 	//int const* const kpki; //Cant change either value or address
 
-	union malloctest {
-		i32 data[32];
-		var pdata[32];
-		struct {
-			i32 dummy;
-		};
+	//union malloctest {
+	//	i32 data[32];
+	//	var pdata[32];
+	//	struct {
+	//		i32 dummy;
+	//	};
 
-	};
-	typedef union malloctest malloctest;
+	//};
+	//typedef union malloctest malloctest;
 
 	int i = 0;
 	var base = &i;
@@ -86,17 +86,20 @@ int testMalloc(decl_argc, decl_argv)
 		printf("Works");
 	}
 
-	malloctest* test1024 = malloc(1024);
-	malloctest* test2048 = malloc(2048);
-	malloctest* test4098 = malloc(4098);
+	mmp_block_release(mallocTest, pool);
+	mmp_pool_term(pool);
 
-	free(test1024);
-	
-	test1024 = malloc(8192);
+	//malloctest* test1024 = malloc(1024);
+	//malloctest* test2048 = malloc(2048);
+	//malloctest* test4098 = malloc(4098);
 
-	free(test4098);
-	free(test1024);
-	free(test2048);
+	//free(test1024);
+	//
+	//test1024 = malloc(8192);
+
+	//free(test4098);
+	//free(test1024);
+	//free(test2048);
 
 	// done
 	return 0;
