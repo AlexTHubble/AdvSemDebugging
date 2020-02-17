@@ -183,18 +183,20 @@ A3DYLIBSYMBOL a3_DemoState *a3demoCB_load(a3_DemoState *demoState, a3boolean hot
 	// do any re-allocation tasks
 	if (demoState && hotbuild)
 	{
-
+		free(demoState);
 	}
 
 	// do any initial allocation tasks
 	// HEAP allocate persistent state
-	else if (demoState = (a3_DemoState*)malloc(stateSize))
+	else
 	{
+		demoState = (a3_DemoState*)malloc(stateSize);
+
 		// good idea to set the whole block of memory to zero
 		memset(demoState, 0, stateSize);
 
 		// set up trig table (A3DM)
-		a3trigInit(8, demoState->trigTable);
+		a3trigInit(2, demoState->trigTable);
 
 		// initialize state variables
 		// e.g. timer, thread, etc.

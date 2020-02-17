@@ -1,0 +1,12 @@
+Bug 1: Heap corruption.
+	This can happen in a number of ways, but primarily triggers in the text init.
+	Putting a print statement before this will cause it to error at that print statement.
+	However, putting a print statement before trigInit, or setting trigInit to 4, will not cause a break at the print.
+	Commenting out the line of memset will instead cause the heap to corrupt in load geometry
+	Various different things can control where the heap error occurs, from changing the malloc size to adding variables.
+Main Causes:
+	Upon further inquiry the heap corrupts at a3trigInit(); Commenting out this function causes all the initializations to work. It also returns a very large value which overflows the heap
+		This could either be memset not setting the array properly or the trigInit handling the array incorrectly
+
+Fix:
+	Set the trigTable to contain more values (5859) and set the degrees to 2. I was able to find these numbers using a3trigInitSamplesRequired

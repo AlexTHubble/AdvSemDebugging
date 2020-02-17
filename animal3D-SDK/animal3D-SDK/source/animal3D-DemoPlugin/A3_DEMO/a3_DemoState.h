@@ -126,7 +126,7 @@ extern "C"
 		a3_XboxControllerInput xcontrol[4];
 
 		// pointer to fast trig table
-		a3f32 trigTable[4096];
+		a3real trigTable[5859];
 
 
 		//---------------------------------------------------------------------
