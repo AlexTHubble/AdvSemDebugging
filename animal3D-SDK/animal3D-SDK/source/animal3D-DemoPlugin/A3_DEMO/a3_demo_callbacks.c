@@ -296,6 +296,7 @@ A3DYLIBSYMBOL a3i32 a3demoCB_idle(a3_DemoState *demoState)
 			a3XboxControlUpdate(demoState->xcontrol);
 
 			// render occurred this idle: return +1
+			return +1;
 		}
 
 		// nothing happened this idle: return 0
