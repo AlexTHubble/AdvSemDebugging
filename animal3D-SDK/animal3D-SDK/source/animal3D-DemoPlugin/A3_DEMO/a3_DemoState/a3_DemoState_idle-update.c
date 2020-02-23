@@ -136,7 +136,7 @@ void a3demo_update_main(a3_DemoState *demoState, a3f64 dt)
 	for (i = 0; i < demoStateMaxCount_sceneObject; ++i)
 		a3demo_updateSceneObject(demoState->sceneObject + i, 0);
 	for (i = 0; i < demoStateMaxCount_cameraObject; ++i)
-		a3demo_updateSceneObject(demoState->cameraObject + i, 0);
+		a3demo_updateSceneObject(demoState->cameraObject + i, 1);
 
 	// update cameras/projectors
 	for (i = 0; i < demoStateMaxCount_projector; ++i)

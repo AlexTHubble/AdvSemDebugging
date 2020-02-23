@@ -184,6 +184,8 @@ A3DYLIBSYMBOL a3_DemoState *a3demoCB_load(a3_DemoState *demoState, a3boolean hot
 	if (demoState && hotbuild)
 	{
 		free(demoState);
+		demoState = (a3_DemoState*)malloc(stateSize);
+		memset(demoState, 0, stateSize);
 	}
 
 	// do any initial allocation tasks

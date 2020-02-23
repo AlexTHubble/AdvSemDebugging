@@ -299,8 +299,6 @@ void a3demo_loadGeometry(a3_DemoState *demoState)
 	a3geometryGenerateVertexArray(vao, "vao:pos", displayShapesData + 1, vbo_ibo, sharedVertexStorage);
 	currentDrawable = demoState->draw_grid;
 	sharedVertexStorage += a3geometryGenerateDrawable(currentDrawable, displayShapesData + 1, vao, vbo_ibo, sceneCommonIndexFormat, 0, 0);
-	//currentDrawable = demoState->draw_teapot;
-	//sharedVertexStorage += a3geometryGenerateDrawable(currentDrawable, loadedModelsData + 0, vao, vbo_ibo, sceneCommonIndexFormat, 0, 0);
 
 	// axes: position and color
 	vao = demoState->vao_position_color;
@@ -311,6 +309,8 @@ void a3demo_loadGeometry(a3_DemoState *demoState)
 	// skybox, unit quad: position and texture coordinates
 	vao = demoState->vao_position_texcoord;
 	a3geometryGenerateVertexArray(vao, "vao:pos+tex", displayShapesData + 2, vbo_ibo, sharedVertexStorage);
+	currentDrawable = demoState->draw_teapot;
+	sharedVertexStorage += a3geometryGenerateDrawable(currentDrawable, loadedModelsData + 0, vao, vbo_ibo, sceneCommonIndexFormat, 0, 0);
 	currentDrawable = demoState->draw_skybox;
 	sharedVertexStorage += a3geometryGenerateDrawable(currentDrawable, displayShapesData + 2, vao, vbo_ibo, sceneCommonIndexFormat, 0, 0);
 	currentDrawable = demoState->draw_unitquad;
