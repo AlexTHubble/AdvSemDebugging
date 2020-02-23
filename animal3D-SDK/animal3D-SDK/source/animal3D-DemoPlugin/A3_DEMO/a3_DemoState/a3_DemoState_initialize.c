@@ -50,10 +50,15 @@ void a3demo_initScene(a3_DemoState *demoState)
 		demoState->verticalAxis ? +sceneCameraAxisPos : -sceneCameraAxisPos,
 		demoState->verticalAxis ? +sceneCameraAxisPos : +sceneCameraAxisPos,
 	};
+	//const a3vec3 sceneCameraStartEuler = {
+	//	demoState->verticalAxis ? -35.0f : +55.0f,
+	//	demoState->verticalAxis ? +45.0f : + 0.0f,
+	//	demoState->verticalAxis ? + 0.0f : +45.0f,
+	//};
 	const a3vec3 sceneCameraStartEuler = {
-		demoState->verticalAxis ? -35.0f : +55.0f,
-		demoState->verticalAxis ? +45.0f : + 0.0f,
-		demoState->verticalAxis ? + 0.0f : +45.0f,
+	demoState->verticalAxis ? -0.0f : +55.0f,
+	demoState->verticalAxis ? -0.0f : +0.0f,
+	demoState->verticalAxis ? -0.0f : +0.0f,
 	};
 
 
