@@ -184,14 +184,13 @@ A3DYLIBSYMBOL a3_DemoState *a3demoCB_load(a3_DemoState *demoState, a3boolean hot
 	if (demoState && hotbuild)
 	{
 		free(demoState);
-		demoState = (a3_DemoState*)malloc(stateSize);
-		memset(demoState, 0, stateSize);
+		//demoState = (a3_DemoState*)malloc(stateSize);
+		//memset(demoState, 0, stateSize);
 	}
 
 	// do any initial allocation tasks
 	// HEAP allocate persistent state
-	else
-	{
+
 		demoState = (a3_DemoState*)malloc(stateSize);
 
 		// good idea to set the whole block of memory to zero
@@ -231,7 +230,6 @@ A3DYLIBSYMBOL a3_DemoState *a3demoCB_load(a3_DemoState *demoState, a3boolean hot
 
 		// scene objects
 		a3demo_initScene(demoState);
-	}
 
 	// return persistent state pointer
 	return demoState;
